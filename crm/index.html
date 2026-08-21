@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CAZA FINNANCIAL · Desk</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="../assets/caza-logo-dark.png">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{ --ink:#302E2B; --soft:#6B6355; --paper:#FAF7F0; --softbg:#EFEADF; --line:#E4DFCE; --ok:#2f6b4f; --bad:#9b3b32; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--paper); color:var(--ink); font-family:Inter,sans-serif; }
+  header{ display:flex; align-items:center; justify-content:space-between; padding:16px 28px; border-bottom:1px solid var(--line); background:#fff; }
+  header img{ height:40px; }
+  header nav{ display:flex; gap:8px; }
+  header button, .ghost{ border:1px solid var(--line); background:transparent; padding:8px 12px; cursor:pointer; font:inherit; }
+  header button.is-on{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
+  .wrap{ max-width:1180px; margin:0 auto; padding:24px 28px 60px; }
+  h1{ font-family:Fraunces,serif; font-size:28px; margin:0 0 18px; }
+  .grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .card{ background:#fff; border:1px solid var(--line); padding:16px; }
+  .card h2{ font-size:13px; letter-spacing:.12em; text-transform:uppercase; font-family:'IBM Plex Mono',monospace; color:var(--soft); margin:0 0 12px; }
+  table{ width:100%; border-collapse:collapse; font-size:14px; }
+  th{ text-align:left; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--soft); padding:6px 0; border-bottom:1px solid var(--line); }
+  td{ padding:9px 0; border-bottom:1px solid var(--line); vertical-align:top; }
+  tr{ cursor:pointer; }
+  tr:hover td{ background:var(--softbg); }
+  .pill{ display:inline-block; font-size:11px; padding:2px 7px; border:1px solid var(--line); text-transform:uppercase; letter-spacing:.06em; }
+  .detail{ margin-top:18px; }
+  .muted{ color:var(--soft); font-size:13px; }
+  .row{ display:flex; gap:8px; flex-wrap:wrap; margin:10px 0; }
+  .btn{ background:var(--ink); color:var(--paper); border:0; padding:10px 14px; font-weight:600; cursor:pointer; }
+  textarea, input, select{ width:100%; border:1px solid var(--line); background:var(--paper); padding:10px; font:inherit; }
+  .notes{ display:flex; flex-direction:column; gap:8px; }
+  .note{ background:var(--softbg); padding:10px; font-size:13px; }
+  .overlay{ display:none; position:fixed; inset:0; background:rgba(20,18,15,.4); z-index:200; align-items:center; justify-content:center; padding:24px; }
+  .overlay.is-on{ display:flex; }
+  .modal{ width:min(640px,100%); max-height:92vh; background:var(--paper); border:1px solid var(--line); display:flex; flex-direction:column; }
+  .modal-h{ display:flex; justify-content:space-between; align-items:center; padding:16px 20px; border-bottom:1px solid var(--line); }
+  .modal-h h3{ margin:0; font-family:Fraunces,serif; font-size:20px; }
+  .modal-b{ padding:16px 20px; overflow:auto; }
+  .modal-f{ display:flex; justify-content:flex-end; gap:8px; padding:12px 20px; border-top:1px solid var(--line); }
+  .preview{ border:1px solid var(--line); background:#fff; min-height:180px; }
+  .field-l{ display:block; font-size:11px; letter-spacing:.1em; text-transform:uppercase; font-family:'IBM Plex Mono',monospace; color:var(--soft); margin:12px 0 6px; }
+  .err{ color:var(--bad); font-size:13px; }
+  .ok{ color:var(--ok); font-size:13px; }
+  @media (max-width: 800px){ .grid{ grid-template-columns:1fr; } header{ flex-wrap:wrap; gap:10px; } }
+</style>
+</head>
+<body>
+<header>
+  <img src="../assets/caza-logo-dark.png" alt="CAZA FINNANCIAL">
+  <nav>
+    <button class="is-on" data-tab="leads">Leads</button>
+    <button data-tab="appts">Appointments</button>
+    <button data-tab="chats">Chats</button>
+    <button id="out">Sign out</button>
+  </nav>
+</header>
+<main class="wrap">
+  <h1 id="title">Leads</h1>
+  <div id="list"></div>
+  <div class="detail" id="detail" hidden></div>
+</main>
+<div class="overlay" id="emailOverlay">
+  <div class="modal">
+    <div class="modal-h">
+      <div>
+        <h3>Write email</h3>
+        <div class="muted" id="emTo"></div>
+      </div>
+      <button class="ghost" type="button" id="emClose">×</button>
+    </div>
+    <div class="modal-b">
+      <label class="field-l">Template</label>
+      <select id="emTpl">
+        <option value="welcome">Welcome</option>
+        <option value="confirm">Appointment confirmation</option>
+        <option value="reminder">Appointment reminder</option>
+      </select>
+      <label class="field-l">Subject</label>
+      <input id="emSubject" type="text">
+      <label class="field-l">Heading</label>
+      <input id="emHeading" type="text">
+      <label class="field-l">Body</label>
+      <textarea id="emBody" rows="5"></textarea>
+      <label class="field-l">Personal note (optional)</label>
+      <textarea id="emNote" rows="2" placeholder="Drops above the body, in the branded card."></textarea>
+      <div class="field-l">Preview</div>
+      <div class="preview" id="emPreview"><div class="muted" style="padding:16px">Loading preview…</div></div>
+      <p class="err" id="emErr"></p>
+    </div>
+    <div class="modal-f">
+      <span class="muted" style="margin-right:auto">Nothing sends until you click Send.</span>
+      <button class="ghost" type="button" id="emCancel">Cancel</button>
+      <button class="btn" type="button" id="emSend">Send email</button>
+    </div>
+  </div>
+</div>
+<script type="module">
+  import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+  const SB = "https://jtifhcvbgxqwlywugvjv.supabase.co";
+  const ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp0aWZoY3ZiZ3hxd2x5d3Vndmp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1MDc5NTgsImV4cCI6MjA4ODA4Mzk1OH0.UfRVLuvM8_HPvKXUEDXb0cxR50znv16L5Tf99AnSc7g";
+  const sb = createClient(SB, ANON, { auth: { storageKey: "sb-caza-auth", persistSession: true } });
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) location.replace("./login.html");
+
+  const headers = () => ({
+    "content-type": "application/json",
+    apikey: ANON,
+    authorization: "Bearer " + session.access_token,
+  });
+  async function api(body) {
+    const r = await fetch(SB + "/functions/v1/caza-crm-data", { method: "POST", headers: headers(), body: JSON.stringify(body) });
+    return r.json();
+  }
+  async function mail(payload) {
+    const r = await fetch(SB + "/functions/v1/caza-mailer", {
+      method: "POST", headers: headers(),
+      body: JSON.stringify(payload),
+    });
+    const d = await r.json().catch(() => ({ ok: false, error: "bad response" }));
+    if (!r.ok && !d.error) d.error = "HTTP " + r.status;
+    return d;
+  }
+
+  let data = { leads: [], appointments: [], chats: [] };
+  let tab = "leads";
+  const list = document.getElementById("list");
+  const detail = document.getElementById("detail");
+  const title = document.getElementById("title");
+
+  function fmt(iso) {
+    if (!iso) return "";
+    return new Date(iso).toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
+  }
+
+  function render() {
+    detail.hidden = true;
+    detail.innerHTML = "";
+    if (tab === "leads") {
+      title.textContent = "Leads";
+      list.innerHTML = `<div class="card"><table><thead><tr><th>Name</th><th>Contact</th><th>Service</th><th>Status</th><th>In</th></tr></thead><tbody>
+        ${data.leads.map((l) => `<tr data-lead="${l.id}"><td>${esc(l.name)}</td><td>${esc(l.email || l.phone || "")}</td><td>${esc(l.service || "")}</td><td><span class="pill">${esc(l.status)}</span></td><td>${fmt(l.created_at)}</td></tr>`).join("") || "<tr><td colspan=5 class=muted>No leads yet.</td></tr>"}
+      </tbody></table></div>`;
+    } else if (tab === "appts") {
+      title.textContent = "Appointments";
+      list.innerHTML = `<div class="card"><table><thead><tr><th>When</th><th>Lead</th><th>Service</th><th>Status</th></tr></thead><tbody>
+        ${data.appointments.map((a) => {
+          const lead = data.leads.find((l) => l.id === a.lead_id);
+          return `<tr data-lead="${a.lead_id || ""}"><td>${fmt(a.scheduled_at)}</td><td>${esc(lead?.name || "")}</td><td>${esc(a.service || "")}</td><td><span class="pill">${esc(a.status)}</span></td></tr>`;
+        }).join("") || "<tr><td colspan=4 class=muted>No appointments yet.</td></tr>"}
+      </tbody></table></div>`;
+    } else {
+      title.textContent = "Chats";
+      list.innerHTML = `<div class="card"><table><thead><tr><th>Session</th><th>Turns</th><th>Updated</th></tr></thead><tbody>
+        ${data.chats.map((c) => `<tr data-chat="${c.session_id}"><td>${esc(c.session_id.slice(0, 8))}…</td><td>${c.turns}</td><td>${fmt(c.updated_at)}</td></tr>`).join("") || "<tr><td colspan=3 class=muted>No chats yet.</td></tr>"}
+      </tbody></table></div>`;
+    }
+  }
+
+  async function openLead(id) {
+    const d = await api({ action: "get_lead", lead_id: id });
+    if (!d.ok) return;
+    const l = d.lead;
+    detail.hidden = false;
+    detail.innerHTML = `
+      <div class="card">
+        <h2>${esc(l.name)}</h2>
+        <p class="muted">${esc(l.email || "no email")} · ${esc(l.phone || "no phone")} · ${esc(l.service || "")} · ${esc(l.source || "")}</p>
+        <div class="row">
+          <select id="st">${["new","contacted","booked","done"].map((s) => `<option ${s===l.status?"selected":""}>${s}</option>`).join("")}</select>
+          <button class="btn" id="saveSt">Save status</button>
+        </div>
+        <div class="row">
+          <button class="btn" id="writeEmail">Write email</button>
+        </div>
+        <h2>Emails sent</h2>
+        <div class="notes">${(d.emails||[]).map((e)=>`<div class="note"><div class="muted">${fmt(e.created_at)} · ${e.sent ? "sent" : "failed"}</div>${esc(e.subject || e.template)} → ${esc(e.to_email || "")}</div>`).join("") || "<div class=muted>No emails yet.</div>"}</div>
+        <h2>Book a consult</h2>
+        <div class="row">
+          <input id="when" type="datetime-local">
+          <button class="btn" id="book">Book</button>
+        </div>
+        <h2>Notes</h2>
+        <div class="notes">${(d.notes||[]).map((n)=>`<div class="note"><div class="muted">${esc(n.author)} · ${fmt(n.created_at)}</div>${esc(n.body)}</div>`).join("") || "<div class=muted>No notes.</div>"}</div>
+        <textarea id="note" rows="3" placeholder="Add a note"></textarea>
+        <div class="row"><button class="btn" id="addNote">Save note</button></div>
+      </div>`;
+    detail.querySelector("#saveSt").onclick = async () => {
+      await api({ action: "update_lead", lead_id: id, status: detail.querySelector("#st").value });
+      await load();
+    };
+    detail.querySelector("#addNote").onclick = async () => {
+      const body = detail.querySelector("#note").value.trim();
+      if (!body) return;
+      await api({ action: "add_note", lead_id: id, body });
+      openLead(id);
+    };
+    detail.querySelector("#book").onclick = async () => {
+      const v = detail.querySelector("#when").value;
+      if (!v) return;
+      await api({ action: "book", lead_id: id, scheduled_at: new Date(v).toISOString(), service: l.service });
+      await load();
+      openLead(id);
+    };
+    detail.querySelector("#writeEmail").onclick = () => openComposer(id, l);
+  }
+
+  let composeLeadId = null;
+  let previewTimer = 0;
+  const overlay = document.getElementById("emailOverlay");
+  function closeComposer() { overlay.classList.remove("is-on"); }
+
+  async function refreshPreview() {
+    if (!composeLeadId) return;
+    const err = document.getElementById("emErr");
+    err.textContent = "";
+    const d = await mail({
+      action: "preview",
+      lead_id: composeLeadId,
+      template: document.getElementById("emTpl").value,
+      subject: document.getElementById("emSubject").value,
+      heading: document.getElementById("emHeading").value,
+      body: document.getElementById("emBody").value,
+      note: document.getElementById("emNote").value,
+    });
+    if (!d.ok) { err.textContent = d.error || "Preview failed"; return; }
+    if (!document.getElementById("emSubject").dataset.dirty) document.getElementById("emSubject").value = d.subject || "";
+    if (!document.getElementById("emHeading").dataset.dirty) document.getElementById("emHeading").value = d.heading || "";
+    if (!document.getElementById("emBody").dataset.dirty) document.getElementById("emBody").value = d.body || "";
+    document.getElementById("emPreview").innerHTML = d.html || "";
+  }
+
+  async function openComposer(id, lead) {
+    composeLeadId = id;
+    document.getElementById("emTo").textContent = "To " + (lead.email || "no email on file");
+    document.getElementById("emTpl").value = "welcome";
+    ["emSubject", "emHeading", "emBody", "emNote"].forEach((i) => {
+      const el = document.getElementById(i);
+      el.value = "";
+      delete el.dataset.dirty;
+    });
+    document.getElementById("emErr").textContent = "";
+    overlay.classList.add("is-on");
+    await refreshPreview();
+  }
+
+  document.getElementById("emClose").onclick = closeComposer;
+  document.getElementById("emCancel").onclick = closeComposer;
+  document.getElementById("emTpl").onchange = () => {
+    ["emSubject", "emHeading", "emBody"].forEach((i) => delete document.getElementById(i).dataset.dirty);
+    refreshPreview();
+  };
+  ["emSubject", "emHeading", "emBody", "emNote"].forEach((i) => {
+    document.getElementById(i).addEventListener("input", () => {
+      document.getElementById(i).dataset.dirty = "1";
+      clearTimeout(previewTimer);
+      previewTimer = setTimeout(refreshPreview, 280);
+    });
+  });
+  document.getElementById("emSend").onclick = async () => {
+    const err = document.getElementById("emErr");
+    err.textContent = "";
+    const btn = document.getElementById("emSend");
+    btn.disabled = true;
+    btn.textContent = "Sending…";
+    const d = await mail({
+      action: "send",
+      lead_id: composeLeadId,
+      template: document.getElementById("emTpl").value,
+      subject: document.getElementById("emSubject").value,
+      heading: document.getElementById("emHeading").value,
+      body: document.getElementById("emBody").value,
+      note: document.getElementById("emNote").value,
+    });
+    btn.disabled = false;
+    btn.textContent = "Send email";
+    if (!d.ok || !d.sent) {
+      err.textContent = d.error || "Send failed.";
+      return;
+    }
+    closeComposer();
+    if (composeLeadId) openLead(composeLeadId);
+  };
+
+  async function openChat(sid) {
+    const d = await fetch(SB + "/functions/v1/caza-crm-data", {
+      method: "POST", headers: headers(), body: JSON.stringify({ action: "get_chat", session_id: sid }),
+    }).then((r) => r.json());
+    const msgs = (d.chat && d.chat.messages) || [];
+    detail.hidden = false;
+    detail.innerHTML = `<div class="card"><h2>Chat ${esc(sid.slice(0,8))}</h2>${
+      msgs.map((m) => `<div class="note"><div class="muted">${esc(m.role)}</div>${esc(m.content)}</div>`).join("") || "<div class=muted>Empty.</div>"
+    }</div>`;
+  }
+
+  function esc(s) {
+    return String(s ?? "").replace(/[<>&]/g, (c) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;" }[c]));
+  }
+
+  list.addEventListener("click", (e) => {
+    const tr = e.target.closest("tr");
+    if (!tr) return;
+    if (tr.dataset.lead) openLead(tr.dataset.lead);
+    if (tr.dataset.chat) openChat(tr.dataset.chat);
+  });
+
+  document.querySelectorAll("header [data-tab]").forEach((b) => {
+    b.addEventListener("click", () => {
+      tab = b.dataset.tab;
+      document.querySelectorAll("header [data-tab]").forEach((x) => x.classList.toggle("is-on", x === b));
+      render();
+    });
+  });
+  document.getElementById("out").onclick = async () => {
+    await sb.auth.signOut();
+    location.replace("./login.html");
+  };
+
+  async function load() {
+    const d = await api({ action: "overview" });
+    if (!d.ok) { list.innerHTML = `<p class="muted">${d.error || "Could not load."}</p>`; return; }
+    data = d;
+    render();
+  }
+  await load();
+</script>
+</body>
+</html>
