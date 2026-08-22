@@ -1,0 +1,32 @@
+{
+  "name": "Ismael Cazares",
+  "role": "Business Consultant and Tax Advisor",
+  "organization": "CAZA FINNANCIAL",
+  "location": "Las Vegas, NV",
+  "languages": ["English", "Spanish"],
+  "phone": "+17022032757",
+  "email": "cazafinnv@gmail.com",
+  "history": [
+    {
+      "year": "1992",
+      "event": "Income tax and bookkeeping began as a family practice in Las Vegas."
+    },
+    {
+      "year": "1998-2010",
+      "event": "Served more than 3,000 Las Vegas casino-industry employees."
+    },
+    {
+      "year": "2013",
+      "event": "Relaunched under the name Caza Finnancial."
+    },
+    {
+      "year": "today",
+      "event": "Still family-run. Direct consults with Ismael, not a call center."
+    }
+  ],
+  "notes": [
+    "Preparing taxes since 1998",
+    "Former income tax teacher (2002-2007)",
+    "Also background as loan officer, CAZA Realty office manager and agent, real estate investor, and life insurance agent"
+  ]
+}

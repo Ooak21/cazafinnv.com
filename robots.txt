@@ -1,5 +1,11 @@
 User-agent: *
 Allow: /
+Allow: /llms.txt
+Allow: /AGENTS.md
+Allow: /hours.json
+Allow: /services.json
+Allow: /person.json
+Allow: /articles/
 Disallow: /crm/
 
 Sitemap: https://cazafinnv.com/sitemap.xml

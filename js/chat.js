@@ -171,6 +171,7 @@ export function initCazaChat() {
             slot_iso: slot.iso,
             lang: lang(),
             session_id: sid(),
+            ...(window.cazaAttr && window.cazaAttr.payload ? { attribution: window.cazaAttr.payload("chat") } : {}),
           }),
         });
         const d = await res.json();
@@ -209,7 +210,11 @@ export function initCazaChat() {
           apikey: CAZA_ANON,
           authorization: "Bearer " + CAZA_ANON,
         },
-        body: JSON.stringify({ messages: convo, session_id: sid() }),
+        body: JSON.stringify({
+          messages: convo,
+          session_id: sid(),
+          ...(window.cazaAttr && window.cazaAttr.payload ? { attribution: window.cazaAttr.payload("chat") } : {}),
+        }),
       });
       const d = await res.json();
       typing.remove();
@@ -243,7 +248,10 @@ export function initCazaChat() {
   }
 
   if (!fab || !sendBtn || !input) return;
-  fab.addEventListener("click", () => (opened ? close() : open()));
+  fab.addEventListener("click", () => {
+    if (window.cazaAttr && window.cazaAttr.markCta) window.cazaAttr.markCta("chat-fab", "chat");
+    opened ? close() : open();
+  });
   closeBtn?.addEventListener("click", close);
   sendBtn.addEventListener("click", () => send());
   input.addEventListener("keydown", (e) => {

@@ -4,9 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CAZA FINNANCIAL · Family Tax Firm · Las Vegas</title>
-<meta name="description" content="CAZA FINNANCIAL is a family tax firm in Las Vegas serving the Latino community and small businesses with tax preparation, bookkeeping, payroll, and community services. Bilingual EN/ES.">
-<meta name="theme-color" content="#302E2B">
+<meta name="description" content="CAZA FINNANCIAL is a family tax firm in Las Vegas. Ismael Cazares prepares personal, business, and rental returns, bookkeeping, and payroll. Bilingual EN/ES. ITIN welcome.">
+<meta name="theme-color" content="#14171C">
 <link rel="canonical" href="https://cazafinnv.com/">
+<link rel="alternate" type="text/plain" title="LLM brief (llms.txt)" href="/llms.txt">
+<link rel="alternate" type="text/markdown" title="Agent instructions" href="/AGENTS.md">
+<link rel="alternate" type="application/json" title="Hours" href="/hours.json">
+<link rel="alternate" type="application/json" title="Services" href="/services.json">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://cazafinnv.com/">
 <meta property="og:title" content="CAZA FINNANCIAL · Family Tax Firm · Las Vegas">
@@ -24,30 +28,51 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="icon" type="image/png" href="assets/caza-logo-dark.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AccountingService",
+  "name": "CAZA FINNANCIAL",
+  "url": "https://cazafinnv.com/",
+  "telephone": "+17022032757",
+  "email": "cazafinnv@gmail.com",
+  "image": "https://jtifhcvbgxqwlywugvjv.supabase.co/storage/v1/object/public/site-media/caza/og.jpg",
+  "areaServed": "Las Vegas, NV",
+  "availableLanguage": ["English", "Spanish"],
+  "founder": { "@type": "Person", "name": "Ismael Cazares", "jobTitle": "Business Consultant and Tax Advisor" },
+  "openingHoursSpecification": [{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+    "opens": "09:00",
+    "closes": "18:00"
+  }],
+  "description": "Family tax firm in Las Vegas. Personal, business, corporate, and non-profit returns, bookkeeping, payroll, and family services. Bilingual EN/ES."
+}
+</script>
 
 <style>
   :root{
-    --ink: #302E2B;
-    --ink-soft: #6B6355;
-    --paper: #FAF7F0;
-    --paper-soft: #EFEADF;
-    --card: #F5F1E4;
-    --line: #E4DFCE;
-    --line-strong: #DFDACE;
-    --gold: #7C8A94;
-    --gold-deep: #5C6870;
-    --gold-light: #E4E7E5;
-    --emerald: #7C8A94;
-    --emerald-deep: #5C6870;
-    --emerald-light: #E4E7E5;
-    --coral: #7C8A94;
-    --ledger-soft: #9C9484;
+    --ink: #14171C;
+    --ink-soft: #5E6772;
+    --paper: #FFFFFF;
+    --paper-soft: #F4F5F7;
+    --card: #F7F8FA;
+    --line: #E8EAEE;
+    --line-strong: #D9DDE3;
+    --gold: #6B7280;
+    --gold-deep: #4B5563;
+    --gold-light: #E5E7EB;
+    --emerald: #4B5563;
+    --emerald-deep: #374151;
+    --emerald-light: #F3F4F6;
+    --coral: #6B7280;
+    --ledger-soft: #8A919A;
     --brass: var(--gold);
     --brass-deep: var(--gold-deep);
     --brass-light: var(--gold-light);
     --ok: #2f6b4f;
     --bad: #9b3b32;
-    --radius: 2px;
+    --radius: 6px;
     --max: 1180px;
   }
 
@@ -130,26 +155,35 @@
     transition:background .25s ease, border-color .25s ease, transform .3s ease;
   }
   .site-header.is-scrolled{
-    background:rgba(250,247,240,.94);
+    background:rgba(255,255,255,.94);
     backdrop-filter:blur(8px);
     border-bottom:1px solid var(--line);
   }
   .site-header.is-hidden{ transform:translateY(-100%); }
-  .nav{
+  .wrap.nav{
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:14px 0;
-    gap:20px;
+    position:relative;
+    width:100%;
+    max-width:none;
+    margin:0;
+    padding:14px clamp(20px, 4vw, 64px);
+    gap:24px;
+    box-sizing:border-box;
   }
   .brand{
     display:flex;
     align-items:center;
     flex-shrink:0;
+    z-index:2;
   }
   .brand img{
     height:52px;
     width:auto;
+  }
+  .logo-light{
+    filter: brightness(0) invert(1);
   }
   .logo-dark{ display:none; }
   .is-scrolled .logo-light{ display:none; }
@@ -158,9 +192,15 @@
   .nav-links{
     display:flex;
     align-items:center;
-    gap:28px;
+    gap:clamp(16px, 2vw, 32px);
     font-size:14.5px;
     font-weight:500;
+    min-width:0;
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%, -50%);
+    z-index:1;
   }
   .nav-links a{
     position:relative;
@@ -182,7 +222,10 @@
   .nav-links a:hover::after{ transform:scaleX(1); }
 
   .nav-cta{
-    display:flex; align-items:center; gap:18px;
+    display:flex; align-items:center; gap:16px;
+    flex-shrink:0;
+    margin-left:auto;
+    z-index:2;
   }
   .nav-phone{
     display:flex; align-items:center; gap:9px;
@@ -284,8 +327,8 @@
   .hero__cta-row{ display:flex; gap:14px; flex-wrap:wrap; }
   .hero .btn--ghost{ border-color:rgba(255,255,255,.4); color:#fff; }
   .hero .btn--ghost:hover{ background:#fff; color:var(--ink); border-color:#fff; }
-  .hero .btn{ background:#3A362E; border-color:#3A362E; color:#fff; }
-  .hero .btn:hover{ background:#221F1A; border-color:#221F1A; }
+  .hero .btn{ background:var(--ink); border-color:var(--ink); color:#fff; }
+  .hero .btn:hover{ background:#0B0D10; border-color:#0B0D10; }
 
   .hero__meta{
     position:relative;
@@ -409,7 +452,14 @@
   }
   .service-card__icon svg{ width:19px; height:19px; }
   .service-card h4{ font-size:17px; line-height:1.25; }
-  .service-card .art-block{ height:130px; }
+  .service-card .art-block{
+    height:auto;
+    min-height:168px;
+    aspect-ratio:3 / 2;
+  }
+  .service-card .art-block img[src*="advisory"]{
+    object-position:center top;
+  }
   .service-card p{ font-size:14px; color:var(--ink-soft); flex-grow:1; }
   .service-card__link{
     display:inline-flex; align-items:center; gap:7px;
@@ -427,33 +477,61 @@
   /* ---------- Easy banner ---------- */
   .intro-banner{
     position:relative;
-    min-height:420px;
-    display:flex;
+    height:clamp(400px, 30vw, 500px);
+    display:grid;
+    /* right column is the photo; copy + logo split the gray */
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(38%, 46%);
     align-items:center;
     overflow:hidden;
     background:#d5d5d5;
-    padding:0;
+    padding:0 clamp(20px, 4vw, 64px);
   }
   .intro-banner__img{
     position:absolute;
     inset:0;
     width:100%;
     height:100%;
-    object-fit:cover;
+    object-fit:contain;
     object-position:right center;
+    z-index:0;
   }
-  .intro-banner__inner{
+  .intro-banner__copy{
+    grid-column:1;
+    justify-self:center;
     position:relative;
-    z-index:1;
-    padding:72px 0;
+    z-index:2;
+    padding:48px 12px 48px 0;
   }
   .intro-banner h3{
     color:var(--ink);
     font-style:italic;
-    font-size:clamp(32px, 4.2vw, 52px);
+    font-size:clamp(28px, 3.4vw, 48px);
     max-width:11ch;
     margin:0 0 24px;
     line-height:1.08;
+  }
+  .intro-banner__logo{
+    grid-column:2;
+    justify-self:center;
+    position:relative;
+    z-index:2;
+    width:auto;
+    height:auto;
+    max-height:clamp(88px, 11vw, 148px);
+    max-width:min(220px, 90%);
+    object-fit:contain;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .4s ease;
+  }
+  .intro-banner:hover .intro-banner__logo,
+  .intro-banner:focus-within .intro-banner__logo{
+    opacity:1;
+  }
+  @media (min-width: 1600px){
+    .intro-banner{
+      grid-template-columns:1fr 1fr 1fr;
+    }
   }
 
   /* ---------- Why / about ---------- */
@@ -461,18 +539,58 @@
   .whyus__head h2{ font-size:clamp(28px,3.2vw,36px); max-width:22ch; margin-top:14px; }
   .whyus__head-media{ display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:32px; align-items:stretch; }
   .whyus-cta-card{
-    background:linear-gradient(155deg, var(--emerald) 0%, var(--emerald-deep) 100%); color:#fff;
-    padding:30px; border-radius:8px;
-    display:flex; flex-direction:column; justify-content:space-between; gap:18px;
+    position:relative;
+    overflow:hidden;
+    color:#fff;
+    padding:30px;
+    border-radius:8px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    gap:22px;
+    min-height:220px;
+    isolation:isolate;
   }
-  .whyus-cta-card h4{ color:#fff; font-size:19px; }
-  .whyus-cta-card a{
-    display:inline-flex; align-items:center; gap:8px;
-    color:var(--gold-light); font-weight:600; font-size:14px;
+  .whyus-cta-card__img{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:72% 38%;
+    z-index:0;
+  }
+  .whyus-cta-card::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(180deg, rgba(10,12,16,.55) 0%, rgba(10,12,16,.78) 100%);
+    z-index:1;
+  }
+  .whyus-cta-card h4{
+    position:relative;
+    z-index:2;
+    color:#fff;
+    font-size:19px;
+    line-height:1.35;
+    text-shadow:0 1px 10px rgba(0,0,0,.4);
+  }
+  .whyus-cta-card .btn{
+    position:relative;
+    z-index:2;
+    align-self:flex-start;
+    background:#fff;
+    border-color:#fff;
+    color:var(--ink);
+  }
+  .whyus-cta-card .btn:hover{
+    background:var(--ink);
+    border-color:var(--ink);
+    color:#fff;
   }
   .portrait-wrap{
-    background:var(--card);
-    border:1px solid var(--line);
+    background:#4B5563;
+    border:1px solid #4B5563;
     border-radius:8px;
     display:flex;
     align-items:center;
@@ -539,38 +657,60 @@
 
   /* ---------- Story ---------- */
   .trust{ background:var(--paper-soft); }
-  .trust__head{ max-width:62ch; margin-bottom:48px; }
+  .trust__row{
+    display:grid;
+    grid-template-columns:1.05fr .95fr;
+    gap:48px;
+    align-items:center;
+  }
+  .trust__head{ max-width:42ch; margin:0; }
   .trust__head h2{ font-size:clamp(28px,3.2vw,36px); margin:12px 0 18px; }
   .trust__head p{ color:var(--ink-soft); font-size:15.5px; margin-bottom:22px; }
-  .trust__highlight{
-    display:grid;
-    grid-template-columns:1.15fr .85fr;
-    gap:24px;
-  }
-  .trust__image-wrap{ position:relative; }
-  .trust__image-wrap .art-block{ height:100%; min-height:320px; }
-  .trust__quote-card{
-    position:absolute; left:24px; right:24px; bottom:-24px;
-    background:var(--paper);
-    border:1px solid var(--line);
-    box-shadow:0 16px 36px rgba(20,18,15,.1);
-    padding:24px 26px;
-  }
-  .trust__quote-card p{
-    font-family:'Fraunces', serif; font-style:italic;
-    font-size:16px; color:var(--ink);
-    margin-bottom:12px;
-  }
-  .trust__stat-card{
-    background:linear-gradient(155deg, var(--emerald) 0%, var(--emerald-deep) 100%); color:#fff;
-    padding:30px; display:flex; flex-direction:column; justify-content:space-between; gap:24px;
+  .trust__image-wrap{ position:relative; padding-bottom:12px; }
+  .trust__image-wrap .art-block{
+    height:auto;
+    min-height:0;
+    aspect-ratio:3 / 4;
     border-radius:8px;
   }
-  .trust__stat-card h4{ color:#fff; font-size:16px; line-height:1.4; }
-  .trust__stat-card .stat-row{ display:flex; align-items:baseline; gap:4px; font-family:'IBM Plex Mono', monospace; }
-  .trust__stat-card .stat-num{ font-size:38px; font-weight:600; color:var(--gold-light); }
-  .trust__stat-card .stat-suffix{ font-size:22px; color:var(--gold-light); font-weight:600; }
-  .trust__stat-card p{ font-size:13px; color:rgba(255,255,255,.7); margin-top:6px; }
+  .trust__quote-card{
+    position:absolute;
+    left:20px;
+    right:auto;
+    bottom:20px;
+    max-width:min(380px, 82%);
+    background:#4B5563;
+    border:0;
+    border-radius:8px;
+    box-shadow:0 18px 40px rgba(15,18,22,.28);
+    padding:24px 26px 22px;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:16px;
+  }
+  .trust__quote-card h4{
+    font-family:'Fraunces', serif;
+    font-style:normal;
+    font-weight:600;
+    font-size:clamp(18px, 1.8vw, 22px);
+    line-height:1.25;
+    color:#fff;
+    margin:0;
+  }
+  .trust__quote-card .btn{
+    background:#fff;
+    border-color:#fff;
+    color:var(--ink);
+    padding:12px 20px;
+    font-size:14px;
+  }
+  .trust__quote-card .btn:hover{
+    background:var(--ink);
+    border-color:var(--ink);
+    color:#fff;
+  }
+  .trust__quote-card .btn svg{ display:none; }
 
   /* ---------- Checklist ---------- */
   .checklist-grid{
@@ -626,7 +766,7 @@
     border:1px solid var(--gold); color:var(--gold-deep);
   }
   .process-card__icon svg{ width:18px; height:18px; }
-  .process-card__num{ font-family:'IBM Plex Mono', monospace; font-size:15px; color:#221F1A; }
+  .process-card__num{ font-family:'IBM Plex Mono', monospace; font-size:15px; color:var(--ink); }
   .process-card h4{ font-size:18px; margin-top:14px; }
   .process-card p{ font-size:14px; color:var(--ink-soft); margin-top:6px; }
   .process__heading .eyebrow{ margin-bottom:14px; }
@@ -709,7 +849,7 @@
   /* ---------- Resources ---------- */
   .resource-grid{
     display:grid;
-    grid-template-columns:repeat(3, 1fr);
+    grid-template-columns:repeat(2, 1fr);
     gap:20px;
   }
   .resource-card{
@@ -739,6 +879,32 @@
     font-size:12px;
     color:var(--ledger-soft);
   }
+  .tax-est{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:28px;
+    margin-bottom:28px;
+  }
+  .tax-est h3{ font-size:22px; margin:0 0 8px; }
+  .tax-est > p{ color:var(--ink-soft); font-size:14.5px; margin-bottom:20px; max-width:62ch; }
+  .tax-est__grid{
+    display:grid;
+    grid-template-columns:1.1fr 1fr auto;
+    gap:14px;
+    align-items:end;
+  }
+  .tax-est__out{
+    display:none;
+    margin-top:20px;
+    padding:18px 20px;
+    background:var(--paper-soft);
+    border-radius:8px;
+  }
+  .tax-est__out.is-on{ display:block; }
+  .tax-est__out strong{ font-size:28px; font-family:'Fraunces', serif; }
+  .tax-est__out p{ color:var(--ink-soft); font-size:14px; margin-top:8px; }
+  .tax-est__note{ font-size:13px; color:var(--ink-soft); margin-top:14px; max-width:70ch; }
 
   /* ---------- Contact ---------- */
   .contact{ background:var(--paper-soft); }
@@ -804,10 +970,16 @@
   .field input, .field select, .field textarea{
     font:inherit;
     color:var(--ink);
-    background:var(--paper-soft);
+    background:#fff;
     border:1px solid var(--line-strong);
     border-radius:var(--radius);
     padding:12px 12px;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus{
+    outline:2px solid var(--ink);
+    outline-offset:1px;
+    border-color:var(--ink);
+    background:#fff;
   }
   .field textarea{ resize:vertical; min-height:110px; }
   .hp{ position:absolute; left:-9999px; }
@@ -865,6 +1037,24 @@
     letter-spacing:.08em;
     color:rgba(255,255,255,.4);
   }
+  .agents{
+    background:#14171C;
+    color:rgba(255,255,255,.55);
+    padding:72px 0 56px;
+    border-top:1px solid rgba(255,255,255,.08);
+  }
+  .agents .eyebrow{ color:rgba(255,255,255,.4); margin-bottom:10px; }
+  .agents h2{ color:#fff; font-size:clamp(26px,3vw,34px); margin:0 0 16px; }
+  .agents > .wrap > p{ max-width:54ch; font-size:14.5px; margin:0 0 28px; line-height:1.65; }
+  .agents-links{
+    display:flex;
+    flex-direction:column;
+    gap:11px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:15px;
+  }
+  .agents-links a{ color:#C5D4DE; }
+  .agents-links a:hover{ color:#fff; }
 
   /* ---------- Responsive ---------- */
   @media (max-width: 980px){
@@ -873,43 +1063,67 @@
     .services__head{ grid-template-columns:1fr; gap:20px; }
     .whyus__head-media{ grid-template-columns:1fr; }
     .whyus__highlight{ grid-template-columns:1fr; gap:32px; }
-    .trust__highlight{ grid-template-columns:1fr; }
-    .trust__quote-card{ position:static; margin-top:16px; }
+    .trust__row{ grid-template-columns:1fr; gap:28px; }
+    .trust__head{ max-width:none; }
+    .trust__quote-card{ position:static; margin-top:16px; max-width:none; }
     .checklist-grid{ grid-template-columns:1fr; }
     .process__row--first, .process__row--split, .process__row{ grid-template-columns:1fr !important; }
     .results__inner{ grid-template-columns:1fr; gap:36px; }
     .resource-grid{ grid-template-columns:1fr; }
+    .tax-est__grid{ grid-template-columns:1fr; }
     .contact-grid{ grid-template-columns:1fr; }
     .footer__inner{ grid-template-columns:1fr; gap:32px; }
-    .nav-phone, .nav-cta .btn{ display:none; }
+    .nav-phone{ display:none; }
     .hero__trusted{ flex-direction:column; align-items:center; gap:12px; }
   }
+  @media (max-width: 1400px){
+    .nav-links{
+      position:static;
+      transform:none;
+      left:auto;
+      top:auto;
+      flex:1;
+      justify-content:center;
+    }
+  }
   @media (max-width: 760px){
+    .wrap.nav{
+      width:100%;
+      max-width:none;
+      margin:0;
+      padding:10px 18px;
+    }
+    .nav-cta .btn{ display:none; }
     .nav-links{
       display:none;
       position:absolute;
       top:100%; left:0; right:0;
+      transform:none;
       background:var(--paper);
       flex-direction:column;
       align-items:flex-start;
+      justify-content:flex-start;
       padding:20px 28px 24px;
       border-bottom:1px solid var(--line);
       gap:16px;
+      flex:none;
     }
     body.nav-open .nav-links{ display:flex; }
     .nav-links a, .is-scrolled .nav-links a{ color:var(--ink); }
     .nav-toggle{ display:flex; }
     .service-grid{ grid-template-columns:1fr; }
-    .intro-banner{ min-height:0; display:block; }
+    .intro-banner{ min-height:0; height:auto; display:block; padding:0; }
     .intro-banner__img{
       position:static;
-      height:280px;
-      object-position:80% center;
+      height:320px;
+      object-fit:cover;
+      object-position:80% 8%;
     }
-    .intro-banner__inner{
-      padding:36px 0 40px;
+    .intro-banner__copy{
+      padding:36px 28px 40px;
       background:var(--paper);
     }
+    .intro-banner__logo{ display:none; }
     .hero{ min-height:82vh; }
     .hero__content{ padding:130px 0 56px; }
     .hero__stats{ grid-template-columns:1fr; }
@@ -1040,7 +1254,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
         702.203.2757
       </a>
-      <a href="#contact" class="btn">
+      <a href="#contact" class="btn" data-cta="nav-book" data-section="nav">
         <span data-i18n="nav.cta">Book a consultation</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
       </a>
@@ -1070,11 +1284,11 @@
           Thirty years of tax seasons with Las Vegas families, from casino floors to small businesses. We tell the money where to go, so you are not left wondering where it went.
         </p>
         <div class="hero__cta-row">
-          <a href="#contact" class="btn">
+          <a href="#contact" class="btn" data-cta="hero-book" data-section="hero">
             <span data-i18n="hero.cta">Book a consultation</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
           </a>
-          <a href="#services" class="btn btn--ghost">
+          <a href="#services" class="btn btn--ghost" data-cta="hero-services" data-section="hero">
             <span data-i18n="hero.ctaSecondary">View services</span>
           </a>
         </div>
@@ -1132,7 +1346,7 @@
             </div>
             <h4 data-i18n="services.tax.title">Tax Preparation</h4>
           </div>
-          <div class="art-block"><img src="assets/tax-preparation.jpg" alt=""></div>
+          <div class="art-block"><img src="assets/tax-preparation.jpg?v=4" alt=""></div>
           <p data-i18n="services.tax.body">Personal, business, corporate, and non-profit returns. We maximize rental property deductions: short-term rentals, duplexes to fourplexes, and multi-unit properties.</p>
           <a href="#contact" class="service-card__link"><span data-i18n="services.more">Learn more</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
         </div>
@@ -1143,7 +1357,7 @@
             </div>
             <h4 data-i18n="services.book.title">Bookkeeping</h4>
           </div>
-          <div class="art-block"><img src="assets/bookkeeping.jpg" alt=""></div>
+          <div class="art-block"><img src="assets/bookkeeping.jpg?v=4" alt=""></div>
           <p data-i18n="services.book.body">We track every dollar of income and expense, personal or business, small operation or large.</p>
           <a href="#contact" class="service-card__link"><span data-i18n="services.more">Learn more</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
         </div>
@@ -1154,7 +1368,7 @@
             </div>
             <h4 data-i18n="services.pay.title">Payroll</h4>
           </div>
-          <div class="art-block"><img src="assets/payroll.jpg" alt=""></div>
+          <div class="art-block"><img src="assets/payroll.jpg?v=4" alt=""></div>
           <p data-i18n="services.pay.body">Pay yourself the right way, avoid double taxation, and let us guide you to build wealth while saving on taxes.</p>
           <a href="#contact" class="service-card__link"><span data-i18n="services.more">Learn more</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
         </div>
@@ -1165,7 +1379,7 @@
             </div>
             <h4 data-i18n="services.comm.title">Community &amp; Family Services</h4>
           </div>
-          <div class="art-block"><img src="assets/advisory.jpg" alt=""></div>
+          <div class="art-block"><img src="assets/advisory.jpg?v=4" alt=""></div>
           <p data-i18n="services.comm.body">We educate our community on preparing the family legally and financially: life insurance, living trusts, debt acceleration payoff (velocity banking), and funeral membership services. We partner with trusted notaries, real estate agents, and lenders, plus resources for traveling for less, health and wellness, and spiritual wellbeing.</p>
           <a href="#contact" class="service-card__link"><span data-i18n="services.more">Learn more</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
         </div>
@@ -1181,13 +1395,14 @@
       width="2800"
       height="868"
     >
-    <div class="wrap intro-banner__inner">
+    <div class="intro-banner__copy">
       <h3 data-i18n="easy.title">We make things easy</h3>
       <a href="#contact" class="btn">
         <span data-i18n="easy.cta">Book a consultation</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
       </a>
     </div>
+    <img class="intro-banner__logo" src="assets/caza-logo-dark.png" alt="">
   </section>
 
   <section class="section" id="about">
@@ -1202,8 +1417,12 @@
             </div>
           </div>
           <div class="whyus-cta-card">
+            <img class="whyus-cta-card__img" src="assets/whyus-cta.jpg" alt="">
             <h4 data-i18n="about.ctaTitle">You work directly with Ismael, not a call center.</h4>
-            <a href="#contact"><span data-i18n="about.ctaLink">Get started today</span><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+            <a href="#contact" class="btn">
+              <span data-i18n="about.ctaLink">Get started today</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
           </div>
         </div>
       </div>
@@ -1218,10 +1437,6 @@
             <span class="cred-chip" data-i18n="about.chip3">Bilingual EN / ES</span>
           </div>
           <ol class="timeline" data-i18n-aria="about.timelineAria" aria-label="Family history">
-            <li class="timeline-item">
-              <span class="timeline-year" data-i18n="about.t1.year">1992</span>
-              <span data-i18n="about.t1.text">Started at the kitchen table</span>
-            </li>
             <li class="timeline-item">
               <span class="timeline-year" data-i18n="about.t2.year">1998-2010</span>
               <span data-i18n="about.t2.text">Served 3,000+ casino-industry employees in Las Vegas</span>
@@ -1267,32 +1482,24 @@
   </section>
 
   <section class="section trust">
-    <div class="wrap">
+    <div class="wrap trust__row">
+      <div class="trust__image-wrap">
+        <div class="art-block"><img src="assets/_options/lock-story-vegas.jpg" alt="Ismael Cazares" style="object-fit:cover; object-position:center 18%;"></div>
+        <div class="trust__quote-card">
+          <h4 data-i18n="story.card">Family-owned and serving Las Vegas since 1992.</h4>
+          <a href="#contact" class="btn">
+            <span data-i18n="story.cta">Book a consultation</span>
+          </a>
+        </div>
+      </div>
       <div class="trust__head">
         <span class="eyebrow" data-i18n="story.eyebrow">Our story</span>
         <h2 data-i18n="story.title">Built on relationships, not just returns</h2>
         <p data-i18n="story.body">Caza Finnancial got its start in 1992, when income tax and bookkeeping began with my wife and me serving our community. From 1998 to 2010 we served Las Vegas casino-industry employees, more than 3,000 clients strong. After selling that practice, we relaunched under a new name in 2013: Caza Finnancial. Today we serve individuals, small businesses, corporations, partnerships, and non-profits across Las Vegas.</p>
-        <a href="#contact" class="btn" style="background:var(--emerald); border-color:var(--emerald); color:#fff;">
+        <a href="#contact" class="btn">
           <span data-i18n="story.cta">Book a consultation</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
         </a>
-      </div>
-
-      <div class="trust__highlight">
-        <div class="trust__image-wrap">
-          <div class="art-block"><img src="assets/ismael-story.jpg" alt="Ismael Cazares" style="object-fit:contain; background:#fff;"></div>
-          <div class="trust__quote-card">
-            <p data-i18n="story.card">Family-owned and serving Las Vegas since 1992.</p>
-            <a href="#contact"><span data-i18n="story.cta">Book a consultation</span><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-          </div>
-        </div>
-        <div class="trust__stat-card">
-          <h4 data-i18n="story.statTitle">Clear strategy and honest numbers</h4>
-          <div>
-            <div class="stat-row"><span class="stat-num">30</span><span class="stat-suffix">+</span></div>
-            <p data-i18n="story.statLabel">Years with Las Vegas families</p>
-          </div>
-        </div>
       </div>
     </div>
   </section>
@@ -1352,7 +1559,7 @@
       </div>
 
       <div class="process__row process__row--split">
-        <div class="process__art reveal reveal--left"><div class="art-block"><img src="assets/bookkeeping.jpg" alt=""></div></div>
+        <div class="process__art reveal reveal--left"><div class="art-block"><img src="assets/process-review.jpg?v=3" alt=""></div></div>
         <div class="process-card reveal reveal--right" style="--reveal-delay:.1s;">
           <div class="process-card__top">
             <div class="process-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg></div>
@@ -1371,7 +1578,7 @@
       </div>
 
       <div class="process__row" style="grid-template-columns:1fr .9fr;">
-        <div class="process__art reveal reveal--left"><div class="art-block"><img src="assets/payroll.jpg" alt=""></div></div>
+        <div class="process__art reveal reveal--left"><div class="art-block"><img src="assets/process-support.jpg?v=3" alt=""></div></div>
         <div class="process-card reveal reveal--right" style="--reveal-delay:.1s;">
           <div class="process-card__top">
             <div class="process-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 21a8 8 0 1 0-16 0"/><circle cx="12" cy="8" r="5"/></svg></div>
@@ -1494,11 +1701,47 @@
       <div class="head-row">
         <div>
           <span class="eyebrow" data-i18n="res.eyebrow">Resources</span>
-          <h2 data-i18n="res.title">Helpful links and key dates</h2>
+          <h2 data-i18n="res.title">Tools and reading for Las Vegas families</h2>
         </div>
-        <p data-i18n="res.lead">Official IRS tools and a reminder for the federal filing calendar.</p>
+        <p data-i18n="res.lead">A simple federal tax estimator, short guides, and official IRS links. Use these, then book a consult if you want a real return.</p>
       </div>
+
+      <div class="tax-est" id="taxEst">
+        <span class="tag" data-i18n="res.est.tag">Tool</span>
+        <h3 data-i18n="res.est.title">Federal tax estimator</h3>
+        <p data-i18n="res.est.lead">Ballpark federal income tax for tax year 2025 using the standard deduction. No credits, no itemizing, Nevada has no state income tax. This is not a filed return.</p>
+        <div class="tax-est__grid">
+          <div class="field">
+            <label for="estStatus" data-i18n="res.est.status">Filing status</label>
+            <select id="estStatus">
+              <option value="single" data-i18n="res.est.single">Single</option>
+              <option value="mfj" data-i18n="res.est.mfj">Married filing jointly</option>
+              <option value="hoh" data-i18n="res.est.hoh">Head of household</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="estIncome" data-i18n="res.est.income">Gross income (USD)</label>
+            <input id="estIncome" type="number" min="0" step="1000" inputmode="numeric" placeholder="75000">
+          </div>
+          <button type="button" class="btn" id="estBtn" data-cta="tax-estimator" data-section="resources" data-i18n="res.est.run">Estimate</button>
+        </div>
+        <div class="tax-est__out" id="estOut" hidden></div>
+        <p class="tax-est__note" data-i18n="res.est.note">For a real number, Ismael needs your W-2s, 1099s, and deductions. Book a consultation and we will walk the return with you.</p>
+      </div>
+
       <div class="resource-grid">
+        <a class="resource-card" href="articles/las-vegas-tax-appointment.html">
+          <div class="icon-row"><span class="tag" data-i18n="res.a1.tag">Guide</span></div>
+          <h3 data-i18n="res.a1.title">What to bring to your Las Vegas tax appointment</h3>
+          <p data-i18n="res.a1.body">A short checklist so the visit is faster: ID, W-2s, 1099s, last year's return, and rental records.</p>
+          <span class="meta" data-i18n="res.a1.meta">Read the guide</span>
+        </a>
+        <a class="resource-card" href="articles/itin-tax-filing-las-vegas.html">
+          <div class="icon-row"><span class="tag" data-i18n="res.a2.tag">Guide</span></div>
+          <h3 data-i18n="res.a2.title">Filing taxes with an ITIN in Las Vegas</h3>
+          <p data-i18n="res.a2.body">You can file a federal return with an ITIN. Here is what that means, in plain language, plus when to call the office.</p>
+          <span class="meta" data-i18n="res.a2.meta">Read the guide</span>
+        </a>
         <a class="resource-card" href="https://www.irs.gov/wheres-my-refund" target="_blank" rel="noopener noreferrer">
           <div class="icon-row"><span class="tag" data-i18n="res.r1.tag">IRS</span><span aria-hidden="true">→</span></div>
           <h3 data-i18n="res.r1.title">Where's My Refund</h3>
@@ -1511,12 +1754,6 @@
           <p data-i18n="res.r2.body">Learn about the Individual Taxpayer Identification Number and how to apply or renew.</p>
           <span class="meta" data-i18n="res.r2.meta">irs.gov</span>
         </a>
-        <div class="resource-card">
-          <div class="icon-row"><span class="tag" data-i18n="res.r3.tag">Deadline</span></div>
-          <h3 data-i18n="res.r3.title">Key filing date</h3>
-          <p data-i18n="res.r3.body">The federal individual income tax filing deadline is typically April 15. File early when you can, and reach out if you need an extension conversation.</p>
-          <span class="meta" data-i18n="res.r3.meta">April 15</span>
-        </div>
       </div>
     </div>
   </section>
@@ -1601,7 +1838,7 @@
               <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
             </div>
             <div class="form-actions">
-              <button class="btn" type="submit" id="submitBtn" data-i18n="form.submit">Send request</button>
+              <button class="btn" type="submit" id="submitBtn" data-cta="contact-form" data-section="contact" data-i18n="form.submit">Send request</button>
               <p class="form-msg" id="formMsg" role="status" aria-live="polite"></p>
             </div>
           </form>
@@ -1611,6 +1848,22 @@
   </section>
 
 </main>
+
+<section class="agents" id="agents">
+  <div class="wrap">
+    <span class="eyebrow">For agents</span>
+    <h2>Machine-readable Caza</h2>
+    <p>Autonomous agents: read llms.txt first, then AGENTS.md. There is no x402 paywall here. Discovery is free. If you send a human, use the booking URL with utm_source=agent so the desk can see the referral. Hours, services, and Ismael's history in the valley are in JSON.</p>
+    <div class="agents-links">
+      <a href="llms.txt">llms.txt</a>
+      <a href="AGENTS.md">AGENTS.md</a>
+      <a href="hours.json">hours.json</a>
+      <a href="services.json">services.json</a>
+      <a href="person.json">person.json</a>
+      <a href="?utm_source=agent&utm_medium=llm#contact">Book a consult for your human</a>
+    </div>
+  </div>
+</section>
 
 <footer class="site-footer">
   <div class="wrap footer__hero">
@@ -1632,6 +1885,8 @@
         <a href="#services" data-i18n="nav.services">Services</a>
         <a href="#about" data-i18n="nav.about">About</a>
         <a href="#checklist" data-i18n="nav.checklist">What to bring</a>
+        <a href="#resources" data-i18n="res.eyebrow">Resources</a>
+        <a href="#agents">For agents</a>
         <a href="#contact" data-i18n="nav.cta">Book a consultation</a>
       </div>
     </div>
@@ -1681,6 +1936,7 @@
   </button>
 </div>
 
+<script src="js/attribution.js"></script>
 <script src="js/app.js"></script>
 <script type="module" src="js/chat.js"></script>
 </body>

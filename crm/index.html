@@ -8,44 +8,50 @@
 <link rel="icon" type="image/png" href="../assets/caza-logo-dark.png">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root{ --ink:#302E2B; --soft:#6B6355; --paper:#FAF7F0; --softbg:#EFEADF; --line:#E4DFCE; --ok:#2f6b4f; --bad:#9b3b32; }
+  :root{ --ink:#14171C; --soft:#5E6772; --paper:#FFFFFF; --softbg:#F4F5F7; --line:#E8EAEE; --ok:#2f6b4f; --bad:#9b3b32; }
   *{ box-sizing:border-box; }
-  body{ margin:0; background:var(--paper); color:var(--ink); font-family:Inter,sans-serif; }
-  header{ display:flex; align-items:center; justify-content:space-between; padding:16px 28px; border-bottom:1px solid var(--line); background:#fff; }
-  header img{ height:40px; }
-  header nav{ display:flex; gap:8px; }
-  header button, .ghost{ border:1px solid var(--line); background:transparent; padding:8px 12px; cursor:pointer; font:inherit; }
-  header button.is-on{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
-  .wrap{ max-width:1180px; margin:0 auto; padding:24px 28px 60px; }
-  h1{ font-family:Fraunces,serif; font-size:28px; margin:0 0 18px; }
-  .grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-  .card{ background:#fff; border:1px solid var(--line); padding:16px; }
-  .card h2{ font-size:13px; letter-spacing:.12em; text-transform:uppercase; font-family:'IBM Plex Mono',monospace; color:var(--soft); margin:0 0 12px; }
+  body{ margin:0; background:var(--softbg); color:var(--ink); font-family:Inter,sans-serif; -webkit-font-smoothing:antialiased; }
+  header{ display:flex; align-items:center; justify-content:space-between; padding:14px clamp(20px,4vw,64px); border-bottom:1px solid var(--line); background:#fff; }
+  header img{ height:48px; width:auto; }
+  header nav{ display:flex; gap:8px; flex-wrap:wrap; }
+  header button, .ghost{ border:1px solid var(--line); background:transparent; padding:8px 12px; cursor:pointer; font:inherit; border-radius:6px; color:var(--ink); }
+  header button.is-on{ background:var(--ink); color:#fff; border-color:var(--ink); }
+  #out{ color:var(--soft); }
+  .wrap{ max-width:1180px; margin:0 auto; padding:28px 28px 60px; }
+  h1{ font-family:Fraunces,serif; font-size:28px; margin:0 0 18px; font-weight:600; }
+  .card{ background:#fff; border:1px solid var(--line); padding:18px 20px; border-radius:8px; }
+  .card h2{ font-size:12px; letter-spacing:.12em; text-transform:uppercase; font-family:'IBM Plex Mono',monospace; color:var(--soft); margin:18px 0 10px; font-weight:500; }
+  .card h2:first-child{ margin-top:0; }
   table{ width:100%; border-collapse:collapse; font-size:14px; }
-  th{ text-align:left; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--soft); padding:6px 0; border-bottom:1px solid var(--line); }
-  td{ padding:9px 0; border-bottom:1px solid var(--line); vertical-align:top; }
+  th{ text-align:left; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--soft); padding:8px 8px 8px 0; border-bottom:1px solid var(--line); font-family:'IBM Plex Mono',monospace; }
+  td{ padding:10px 8px 10px 0; border-bottom:1px solid var(--line); vertical-align:top; }
   tr{ cursor:pointer; }
   tr:hover td{ background:var(--softbg); }
-  .pill{ display:inline-block; font-size:11px; padding:2px 7px; border:1px solid var(--line); text-transform:uppercase; letter-spacing:.06em; }
+  .pill{ display:inline-block; font-size:11px; padding:3px 8px; border:1px solid var(--line); border-radius:6px; text-transform:uppercase; letter-spacing:.06em; background:var(--softbg); }
   .detail{ margin-top:18px; }
   .muted{ color:var(--soft); font-size:13px; }
-  .row{ display:flex; gap:8px; flex-wrap:wrap; margin:10px 0; }
-  .btn{ background:var(--ink); color:var(--paper); border:0; padding:10px 14px; font-weight:600; cursor:pointer; }
-  textarea, input, select{ width:100%; border:1px solid var(--line); background:var(--paper); padding:10px; font:inherit; }
+  .src{ font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--soft); word-break:break-word; }
+  .row{ display:flex; gap:8px; flex-wrap:wrap; margin:10px 0; align-items:center; }
+  .btn{ background:var(--ink); color:#fff; border:0; padding:10px 16px; font-weight:600; cursor:pointer; border-radius:6px; }
+  .btn:hover{ background:#0B0D10; }
+  textarea, input, select{ width:100%; border:1px solid var(--line); background:#fff; padding:10px; font:inherit; border-radius:6px; }
+  textarea:focus, input:focus, select:focus{ outline:2px solid var(--ink); outline-offset:1px; border-color:var(--ink); }
   .notes{ display:flex; flex-direction:column; gap:8px; }
-  .note{ background:var(--softbg); padding:10px; font-size:13px; }
-  .overlay{ display:none; position:fixed; inset:0; background:rgba(20,18,15,.4); z-index:200; align-items:center; justify-content:center; padding:24px; }
+  .note{ background:var(--softbg); padding:10px 12px; font-size:13px; border-radius:6px; }
+  .overlay{ display:none; position:fixed; inset:0; background:rgba(20,23,28,.45); z-index:200; align-items:center; justify-content:center; padding:24px; }
   .overlay.is-on{ display:flex; }
-  .modal{ width:min(640px,100%); max-height:92vh; background:var(--paper); border:1px solid var(--line); display:flex; flex-direction:column; }
+  .modal{ width:min(640px,100%); max-height:92vh; background:#fff; border:1px solid var(--line); display:flex; flex-direction:column; border-radius:8px; }
   .modal-h{ display:flex; justify-content:space-between; align-items:center; padding:16px 20px; border-bottom:1px solid var(--line); }
-  .modal-h h3{ margin:0; font-family:Fraunces,serif; font-size:20px; }
+  .modal-h h3{ margin:0; font-family:Fraunces,serif; font-size:20px; font-weight:600; }
   .modal-b{ padding:16px 20px; overflow:auto; }
   .modal-f{ display:flex; justify-content:flex-end; gap:8px; padding:12px 20px; border-top:1px solid var(--line); }
-  .preview{ border:1px solid var(--line); background:#fff; min-height:180px; }
+  .preview{ border:1px solid var(--line); background:var(--softbg); min-height:180px; border-radius:6px; overflow:auto; }
   .field-l{ display:block; font-size:11px; letter-spacing:.1em; text-transform:uppercase; font-family:'IBM Plex Mono',monospace; color:var(--soft); margin:12px 0 6px; }
   .err{ color:var(--bad); font-size:13px; }
   .ok{ color:var(--ok); font-size:13px; }
-  @media (max-width: 800px){ .grid{ grid-template-columns:1fr; } header{ flex-wrap:wrap; gap:10px; } }
+  .dl{ display:grid; grid-template-columns:110px 1fr; gap:6px 12px; font-size:13px; margin:12px 0 16px; }
+  .dl dt{ color:var(--soft); font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.06em; text-transform:uppercase; }
+  @media (max-width: 800px){ header{ flex-wrap:wrap; gap:10px; } }
 </style>
 </head>
 <body>
@@ -135,14 +141,23 @@
     if (!iso) return "";
     return new Date(iso).toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
   }
+  function srcLabel(l) {
+    const a = l.attribution || {};
+    const bits = [];
+    if (a.agent || a.channel === "agent" || a.channel === "ai assistant") bits.push("Agent");
+    if (a.channel && a.channel !== "agent") bits.push(a.channel);
+    if (a.cta) bits.push(a.cta);
+    if (a.section) bits.push(a.section);
+    return bits.filter(Boolean).join(" · ") || l.source || "direct";
+  }
 
   function render() {
     detail.hidden = true;
     detail.innerHTML = "";
     if (tab === "leads") {
       title.textContent = "Leads";
-      list.innerHTML = `<div class="card"><table><thead><tr><th>Name</th><th>Contact</th><th>Service</th><th>Status</th><th>In</th></tr></thead><tbody>
-        ${data.leads.map((l) => `<tr data-lead="${l.id}"><td>${esc(l.name)}</td><td>${esc(l.email || l.phone || "")}</td><td>${esc(l.service || "")}</td><td><span class="pill">${esc(l.status)}</span></td><td>${fmt(l.created_at)}</td></tr>`).join("") || "<tr><td colspan=5 class=muted>No leads yet.</td></tr>"}
+      list.innerHTML = `<div class="card"><table><thead><tr><th>Name</th><th>Contact</th><th>Service</th><th>Source</th><th>Status</th><th>In</th></tr></thead><tbody>
+        ${data.leads.map((l) => `<tr data-lead="${l.id}"><td>${esc(l.name)}</td><td>${esc(l.email || l.phone || "")}</td><td>${esc(l.service || "")}</td><td class="src">${esc(srcLabel(l))}</td><td><span class="pill">${esc(l.status)}</span></td><td>${fmt(l.created_at)}</td></tr>`).join("") || "<tr><td colspan=6 class=muted>No leads yet.</td></tr>"}
       </tbody></table></div>`;
     } else if (tab === "appts") {
       title.textContent = "Appointments";
@@ -168,7 +183,15 @@
     detail.innerHTML = `
       <div class="card">
         <h2>${esc(l.name)}</h2>
-        <p class="muted">${esc(l.email || "no email")} · ${esc(l.phone || "no phone")} · ${esc(l.service || "")} · ${esc(l.source || "")}</p>
+        <p class="muted">${esc(l.email || "no email")} · ${esc(l.phone || "no phone")} · ${esc(l.service || "")}</p>
+        <dl class="dl">
+          <dt>Source</dt><dd>${esc(srcLabel(l))}</dd>
+          <dt>Channel</dt><dd>${esc((l.attribution && l.attribution.channel) || "—")}</dd>
+          <dt>Button</dt><dd>${esc((l.attribution && l.attribution.cta) || "—")}</dd>
+          <dt>Section</dt><dd>${esc((l.attribution && l.attribution.section) || "—")}</dd>
+          <dt>Agent</dt><dd>${(l.attribution && l.attribution.agent) ? "Yes" : "No"}</dd>
+          <dt>Landing</dt><dd class="src">${esc((l.attribution && l.attribution.first && l.attribution.first.landing_path) || "—")}</dd>
+        </dl>
         <div class="row">
           <select id="st">${["new","contacted","booked","done"].map((s) => `<option ${s===l.status?"selected":""}>${s}</option>`).join("")}</select>
           <button class="btn" id="saveSt">Save status</button>

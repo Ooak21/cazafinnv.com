@@ -1,0 +1,15 @@
+{
+  "name": "CAZA FINNANCIAL",
+  "timezone": "America/Los_Angeles",
+  "weekdays": {
+    "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    "open": "09:00",
+    "close": "18:00"
+  },
+  "weekend": "by appointment",
+  "consult_minutes": 45,
+  "phone": "+17022032757",
+  "email": "cazafinnv@gmail.com",
+  "booking_url": "https://cazafinnv.com/?utm_source=agent&utm_medium=llm#contact",
+  "notes": "Year-round office. Not a seasonal booth."
+}

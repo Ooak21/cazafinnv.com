@@ -86,8 +86,6 @@ const I18N = {
     "about.chip1": "Preparing taxes since 1998",
     "about.chip2": "Former income tax teacher",
     "about.chip3": "Bilingual EN / ES",
-    "about.t1.year": "1992",
-    "about.t1.text": "Started at the kitchen table",
     "about.t2.year": "1998-2010",
     "about.t2.text": "Served 3,000+ casino-industry employees in Las Vegas",
     "about.t3.year": "2013",
@@ -165,8 +163,30 @@ const I18N = {
       "We work year-round. Tax season is busy, but bookkeeping, payroll, and community family services continue throughout the year so you can stay organized between filing deadlines.",
 
     "res.eyebrow": "Resources",
-    "res.title": "Helpful links and key dates",
-    "res.lead": "Official IRS tools and a reminder for the federal filing calendar.",
+    "res.title": "Tools and reading for Las Vegas families",
+    "res.lead": "A simple federal tax estimator, short guides, and official IRS links. Use these, then book a consult if you want a real return.",
+    "res.est.tag": "Tool",
+    "res.est.title": "Federal tax estimator",
+    "res.est.lead": "Ballpark federal income tax for tax year 2025 using the standard deduction. No credits, no itemizing, Nevada has no state income tax. This is not a filed return.",
+    "res.est.status": "Filing status",
+    "res.est.single": "Single",
+    "res.est.mfj": "Married filing jointly",
+    "res.est.hoh": "Head of household",
+    "res.est.income": "Gross income (USD)",
+    "res.est.run": "Estimate",
+    "res.est.need": "Enter an income amount.",
+    "res.est.result": "Estimated federal tax",
+    "res.est.rate": "Effective rate",
+    "res.est.taxable": "Taxable income after standard deduction",
+    "res.est.note": "For a real number, Ismael needs your W-2s, 1099s, and deductions. Book a consultation and we will walk the return with you.",
+    "res.a1.tag": "Guide",
+    "res.a1.title": "What to bring to your Las Vegas tax appointment",
+    "res.a1.body": "A short checklist so the visit is faster: ID, W-2s, 1099s, last year's return, and rental records.",
+    "res.a1.meta": "Read the guide",
+    "res.a2.tag": "Guide",
+    "res.a2.title": "Filing taxes with an ITIN in Las Vegas",
+    "res.a2.body": "You can file a federal return with an ITIN. Here is what that means, in plain language, plus when to call the office.",
+    "res.a2.meta": "Read the guide",
     "res.r1.tag": "IRS",
     "res.r1.title": "Where's My Refund",
     "res.r1.body": "Check the status of your federal tax refund directly with the IRS.",
@@ -310,8 +330,6 @@ const I18N = {
     "about.chip1": "Preparando impuestos desde 1998",
     "about.chip2": "Exprofesor de impuestos",
     "about.chip3": "Bilingüe EN / ES",
-    "about.t1.year": "1992",
-    "about.t1.text": "Comenzamos en la mesa de la cocina",
     "about.t2.year": "1998-2010",
     "about.t2.text":
       "Servimos a más de 3,000 empleados de la industria de casinos en Las Vegas",
@@ -391,9 +409,35 @@ const I18N = {
       "Trabajamos todo el año. La temporada de impuestos es ocupada, pero la contabilidad, la nómina y los servicios comunitarios y familiares continúan durante el año para que se mantenga organizado entre fechas de presentación.",
 
     "res.eyebrow": "Recursos",
-    "res.title": "Enlaces útiles y fechas clave",
+    "res.title": "Herramientas y lecturas para familias de Las Vegas",
     "res.lead":
-      "Herramientas oficiales del IRS y un recordatorio del calendario federal de presentación.",
+      "Un estimador federal sencillo, guías cortas y enlaces oficiales del IRS. Úselos y luego reserve una consulta si quiere una declaración real.",
+    "res.est.tag": "Herramienta",
+    "res.est.title": "Estimador de impuestos federales",
+    "res.est.lead":
+      "Cálculo aproximado del impuesto federal sobre la renta para el año 2025, usando la deducción estándar. Sin créditos, sin detallar. Nevada no tiene impuesto estatal sobre la renta. Esto no es una declaración presentada.",
+    "res.est.status": "Estado civil fiscal",
+    "res.est.single": "Soltero",
+    "res.est.mfj": "Casado, declaración conjunta",
+    "res.est.hoh": "Cabeza de familia",
+    "res.est.income": "Ingreso bruto (USD)",
+    "res.est.run": "Estimar",
+    "res.est.need": "Ingrese un monto de ingreso.",
+    "res.est.result": "Impuesto federal estimado",
+    "res.est.rate": "Tasa efectiva",
+    "res.est.taxable": "Ingreso gravable después de la deducción estándar",
+    "res.est.note":
+      "Para un número real, Ismael necesita sus W-2, 1099 y deducciones. Reserve una consulta y revisamos la declaración juntos.",
+    "res.a1.tag": "Guía",
+    "res.a1.title": "Qué traer a su cita de impuestos en Las Vegas",
+    "res.a1.body":
+      "Una lista corta para que la visita sea más rápida: identificación, W-2, 1099, la declaración del año pasado y registros de rentas.",
+    "res.a1.meta": "Leer la guía",
+    "res.a2.tag": "Guía",
+    "res.a2.title": "Presentar impuestos con ITIN en Las Vegas",
+    "res.a2.body":
+      "Se puede presentar una declaración federal con ITIN. Aquí explicamos qué significa, en lenguaje sencillo, y cuándo llamar a la oficina.",
+    "res.a2.meta": "Leer la guía",
     "res.r1.tag": "IRS",
     "res.r1.title": "¿Dónde está mi reembolso?",
     "res.r1.body":
@@ -533,13 +577,9 @@ function initNav() {
 function initHeader() {
   const header = document.querySelector(".site-header");
   if (!header) return;
-  let lastY = window.scrollY;
   const onScroll = () => {
-    const y = window.scrollY;
-    header.classList.toggle("is-scrolled", y > 60);
-    if (y > lastY && y > 140) header.classList.add("is-hidden");
-    else header.classList.remove("is-hidden");
-    lastY = y;
+    header.classList.toggle("is-scrolled", window.scrollY > 12);
+    header.classList.remove("is-hidden");
   };
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
@@ -639,6 +679,87 @@ function initCounters() {
   });
 }
 
+function initTaxEstimator() {
+  const btn = document.getElementById("estBtn");
+  const incomeEl = document.getElementById("estIncome");
+  const statusEl = document.getElementById("estStatus");
+  const out = document.getElementById("estOut");
+  if (!btn || !incomeEl || !statusEl || !out) return;
+
+  const STD = { single: 15000, mfj: 30000, hoh: 22500 };
+  const BRACKETS = {
+    single: [
+      [11925, 0.1],
+      [48475, 0.12],
+      [103350, 0.22],
+      [197300, 0.24],
+      [250525, 0.32],
+      [626350, 0.35],
+      [Infinity, 0.37],
+    ],
+    mfj: [
+      [23850, 0.1],
+      [96950, 0.12],
+      [206700, 0.22],
+      [394600, 0.24],
+      [501050, 0.32],
+      [751600, 0.35],
+      [Infinity, 0.37],
+    ],
+    hoh: [
+      [17000, 0.1],
+      [64850, 0.12],
+      [103350, 0.22],
+      [197300, 0.24],
+      [250500, 0.32],
+      [626350, 0.35],
+      [Infinity, 0.37],
+    ],
+  };
+
+  function taxOn(taxable, rows) {
+    let tax = 0;
+    let prev = 0;
+    for (const [cap, rate] of rows) {
+      const slice = Math.min(taxable, cap) - prev;
+      if (slice > 0) tax += slice * rate;
+      prev = cap;
+      if (taxable <= cap) break;
+    }
+    return tax;
+  }
+
+  function money(n) {
+    return n.toLocaleString(currentLang === "es" ? "es-US" : "en-US", {
+      style: "currency",
+      currency: "USD",
+      maximumFractionDigits: 0,
+    });
+  }
+
+  btn.addEventListener("click", () => {
+    const dict = I18N[currentLang] || I18N.en;
+    const income = Number(incomeEl.value);
+    if (!Number.isFinite(income) || income <= 0) {
+      out.hidden = false;
+      out.classList.add("is-on");
+      out.innerHTML = `<p>${dict["res.est.need"]}</p>`;
+      return;
+    }
+    const key = statusEl.value in STD ? statusEl.value : "single";
+    const taxable = Math.max(0, income - STD[key]);
+    const tax = taxOn(taxable, BRACKETS[key]);
+    const rate = income > 0 ? (tax / income) * 100 : 0;
+    out.hidden = false;
+    out.classList.add("is-on");
+    out.innerHTML =
+      `<p>${dict["res.est.result"]}</p>` +
+      `<strong>${money(Math.round(tax))}</strong>` +
+      `<p>${dict["res.est.taxable"]}: ${money(Math.round(taxable))}. ${dict["res.est.rate"]}: ${rate.toFixed(1)}%.</p>` +
+      `<p><a href="#contact" class="btn" style="margin-top:10px">${dict["nav.cta"]}</a></p>`;
+  });
+}
+
 function initForm() {
   const form = document.getElementById("intakeForm");
   if (!form) return;
@@ -674,7 +795,10 @@ function initForm() {
     const prevLabel = btn.textContent;
     btn.textContent = dict()["form.sending"];
 
-    const payload = { name, phone, email, service, lang, message };
+    const attr = (window.cazaAttr && window.cazaAttr.payload)
+      ? window.cazaAttr.payload("form")
+      : { origin: "form", source: "form|contact-form|contact" };
+    const payload = { name, phone, email, service, lang, message, source: attr.source, attribution: attr };
 
     try {
       const res = await fetch(INTAKE_URL, {
@@ -721,4 +845,5 @@ document.addEventListener("DOMContentLoaded", () => {
   initReveal();
   initCounters();
   initForm();
+  initTaxEstimator();
 });

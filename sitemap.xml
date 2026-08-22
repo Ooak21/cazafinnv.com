@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://cazafinnv.com/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://cazafinnv.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://cazafinnv.com/articles/las-vegas-tax-appointment.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://cazafinnv.com/articles/itin-tax-filing-las-vegas.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://cazafinnv.com/llms.txt</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cazafinnv.com/AGENTS.md</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cazafinnv.com/hours.json</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://cazafinnv.com/services.json</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://cazafinnv.com/person.json</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
 </urlset>

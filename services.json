@@ -1,0 +1,28 @@
+{
+  "name": "CAZA FINNANCIAL",
+  "url": "https://cazafinnv.com/#services",
+  "areaServed": "Las Vegas, NV and the Las Vegas valley",
+  "languages": ["en", "es"],
+  "services": [
+    {
+      "id": "tax-preparation",
+      "name": "Tax preparation",
+      "summary": "Personal, business, corporate, and non-profit returns. Rental deductions for short-term rentals, duplexes to fourplexes, and multi-unit properties."
+    },
+    {
+      "id": "bookkeeping",
+      "name": "Bookkeeping",
+      "summary": "Track income and expenses for households and businesses, small or large."
+    },
+    {
+      "id": "payroll",
+      "name": "Payroll",
+      "summary": "Pay yourself the right way, avoid double taxation, and stay organized between filing deadlines."
+    },
+    {
+      "id": "community-family",
+      "name": "Community and family services",
+      "summary": "Life insurance, living trusts, velocity banking, funeral memberships, plus trusted notaries, real estate agents, and lenders."
+    }
+  ]
+}
