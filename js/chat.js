@@ -25,8 +25,8 @@ const COPY = {
     ph: "Ask about hours, taxes, or booking",
     online: "Online · booking desk",
     note: "CAZA desk · 702-203-2757",
-    nudgeTitle: "Have a question?",
-    nudgeBody: "Chat with the desk — hours, taxes, or book a consult with Ismael.",
+    nudgeTitle: "Need a hand?",
+    nudgeBody: "Tap to chat — hours, taxes, or book with Ismael.",
     nudgeDismiss: "Dismiss chat invite",
     pick: "Open times (Pacific)",
     need: "To lock that time I need your name and a phone or email.",
@@ -45,8 +45,8 @@ const COPY = {
     ph: "Pregunte por horario, impuestos o citas",
     online: "En línea · citas",
     note: "Oficina CAZA · 702-203-2757",
-    nudgeTitle: "¿Tiene una pregunta?",
-    nudgeBody: "Escriba a la oficina — horario, impuestos o una cita con Ismael.",
+    nudgeTitle: "¿Le ayudo?",
+    nudgeBody: "Toque para escribir — horario, impuestos o una cita con Ismael.",
     nudgeDismiss: "Cerrar invitación de chat",
     pick: "Horarios abiertos (Pacífico)",
     need: "Para reservar necesito su nombre y un teléfono o correo.",
@@ -83,7 +83,7 @@ export function initCazaChat() {
   const nudgeX = document.getElementById("cazaChatNudgeX");
   const nudgeTitle = document.getElementById("cazaChatNudgeTitle");
   const nudgeBody = document.getElementById("cazaChatNudgeBody");
-  const NUDGE_KEY = "caza_chat_nudge_off";
+  const NUDGE_KEY = "caza_chat_nudge_off_v2";
 
   const convo = [];
   let pendingSlot = null;
@@ -93,11 +93,15 @@ export function initCazaChat() {
     try { return sessionStorage.getItem(NUDGE_KEY) === "1"; } catch { return false; }
   }
   function dismissNudge() {
-    if (nudge) nudge.classList.remove("is-on");
+    if (nudge) {
+      nudge.classList.remove("is-on");
+      nudge.classList.add("is-off");
+    }
     try { sessionStorage.setItem(NUDGE_KEY, "1"); } catch {}
   }
   function showNudge() {
     if (!nudge || opened || nudgeOff()) return;
+    nudge.classList.remove("is-off");
     nudge.classList.add("is-on");
   }
 
@@ -259,7 +263,6 @@ export function initCazaChat() {
 
   function open() {
     opened = true;
-    dismissNudge();
     root.classList.add("is-open");
     fab.setAttribute("aria-expanded", "true");
     if (!msgs.children.length) {
@@ -306,7 +309,7 @@ export function initCazaChat() {
   langEn?.addEventListener("click", () => setTimeout(paintChrome, 0));
   langEs?.addEventListener("click", () => setTimeout(paintChrome, 0));
   paintChrome();
-  setTimeout(showNudge, 1100);
+  setTimeout(showNudge, 700);
 }
 
 if (document.readyState === "loading") {
