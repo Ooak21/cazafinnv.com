@@ -344,13 +344,18 @@
     text-shadow:none;
   }
   .hero h1{
+    font-family:Inter, sans-serif;
     font-size:clamp(38px, 4.8vw, 60px);
-    letter-spacing:-.01em;
+    font-weight:650;
+    letter-spacing:-.03em;
     color:#fff;
-    max-width:16ch;
+    max-width:14em;
+    line-height:1.08;
   }
+  .hero h1 .hero-h1-break{ display:block; }
   .hero h1 em{
-    font-style:italic;
+    font-style:normal;
+    font-weight:650;
     color:#fff;
   }
   .hero__desc{
@@ -1384,8 +1389,11 @@
       <div class="wrap">
         <span class="eyebrow" data-i18n="hero.eyebrow">Las Vegas · Family tax firm · Since 1992</span>
         <h1>
-          <span data-i18n="hero.title">Tax and financial guidance you can actually</span>
-          <em data-i18n="hero.titleEm">trust</em>.
+          <span data-i18n="hero.title">Tax and financial guidance</span>
+          <span class="hero-h1-break">
+            <span data-i18n="hero.title2">you can</span>
+            <em data-i18n="hero.titleEm">trust</em>.
+          </span>
         </h1>
         <p class="hero__desc" data-i18n="hero.lead">
           Thirty years of tax seasons with Las Vegas families, from casino floors to small businesses. We tell the money where to go, so you are not left wondering where it went.

@@ -15,7 +15,8 @@ const I18N = {
     "nav.cta": "Book a consultation",
 
     "hero.eyebrow": "Las Vegas · Family tax firm · Since 1992",
-    "hero.title": "Tax and financial guidance you can actually",
+    "hero.title": "Tax and financial guidance",
+    "hero.title2": "you can",
     "hero.titleEm": "trust",
     "hero.lead":
       "Thirty years of tax seasons with Las Vegas families, from casino floors to small businesses. We tell the money where to go, so you are not left wondering where it went.",
@@ -260,7 +261,8 @@ const I18N = {
     "nav.cta": "Reserve una consulta",
 
     "hero.eyebrow": "Las Vegas · Firma familiar de impuestos · Desde 1992",
-    "hero.title": "Guía fiscal y financiera en la que de verdad puede",
+    "hero.title": "Guía fiscal y financiera",
+    "hero.title2": "en la que puede",
     "hero.titleEm": "confiar",
     "hero.lead":
       "Treinta años de temporadas de impuestos con familias de Las Vegas, desde los pisos de los casinos hasta los pequeños negocios. Le decimos al dinero a dónde ir, para que no se pregunte a dónde se fue.",
