@@ -25,6 +25,9 @@ const COPY = {
     ph: "Ask about hours, taxes, or booking",
     online: "Online · booking desk",
     note: "CAZA desk · 702-203-2757",
+    nudgeTitle: "Have a question?",
+    nudgeBody: "Chat with the desk — hours, taxes, or book a consult with Ismael.",
+    nudgeDismiss: "Dismiss chat invite",
     pick: "Open times (Pacific)",
     need: "To lock that time I need your name and a phone or email.",
     name: "Your name",
@@ -42,6 +45,9 @@ const COPY = {
     ph: "Pregunte por horario, impuestos o citas",
     online: "En línea · citas",
     note: "Oficina CAZA · 702-203-2757",
+    nudgeTitle: "¿Tiene una pregunta?",
+    nudgeBody: "Escriba a la oficina — horario, impuestos o una cita con Ismael.",
+    nudgeDismiss: "Cerrar invitación de chat",
     pick: "Horarios abiertos (Pacífico)",
     need: "Para reservar necesito su nombre y un teléfono o correo.",
     name: "Su nombre",
@@ -73,15 +79,35 @@ export function initCazaChat() {
   const status = document.getElementById("cazaChatStatus");
   const note = document.getElementById("cazaChatNote");
   const closeBtn = document.getElementById("cazaChatClose");
+  const nudge = document.getElementById("cazaChatNudge");
+  const nudgeX = document.getElementById("cazaChatNudgeX");
+  const nudgeTitle = document.getElementById("cazaChatNudgeTitle");
+  const nudgeBody = document.getElementById("cazaChatNudgeBody");
+  const NUDGE_KEY = "caza_chat_nudge_off";
 
   const convo = [];
   let pendingSlot = null;
   let opened = false;
 
+  function nudgeOff() {
+    try { return sessionStorage.getItem(NUDGE_KEY) === "1"; } catch { return false; }
+  }
+  function dismissNudge() {
+    if (nudge) nudge.classList.remove("is-on");
+    try { sessionStorage.setItem(NUDGE_KEY, "1"); } catch {}
+  }
+  function showNudge() {
+    if (!nudge || opened || nudgeOff()) return;
+    nudge.classList.add("is-on");
+  }
+
   function paintChrome() {
     if (status) status.textContent = t().online;
     if (note) note.textContent = t().note;
     if (input) input.placeholder = t().ph;
+    if (nudgeTitle) nudgeTitle.textContent = t().nudgeTitle;
+    if (nudgeBody) nudgeBody.textContent = t().nudgeBody;
+    if (nudgeX) nudgeX.setAttribute("aria-label", t().nudgeDismiss);
     if (quick) {
       quick.innerHTML = "";
       [["hours", t().hours], ["book", t().book], ["services", t().services]].forEach(([k, label]) => {
@@ -233,6 +259,7 @@ export function initCazaChat() {
 
   function open() {
     opened = true;
+    dismissNudge();
     root.classList.add("is-open");
     fab.setAttribute("aria-expanded", "true");
     if (!msgs.children.length) {
@@ -252,6 +279,16 @@ export function initCazaChat() {
     if (window.cazaAttr && window.cazaAttr.markCta) window.cazaAttr.markCta("chat-fab", "chat");
     opened ? close() : open();
   });
+  nudge?.addEventListener("click", (e) => {
+    if (e.target.closest(".caza-chat-nudge-x")) return;
+    if (window.cazaAttr && window.cazaAttr.markCta) window.cazaAttr.markCta("chat-nudge", "chat");
+    open();
+  });
+  nudgeX?.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dismissNudge();
+  });
   closeBtn?.addEventListener("click", close);
   sendBtn.addEventListener("click", () => send());
   input.addEventListener("keydown", (e) => {
@@ -269,6 +306,7 @@ export function initCazaChat() {
   langEn?.addEventListener("click", () => setTimeout(paintChrome, 0));
   langEs?.addEventListener("click", () => setTimeout(paintChrome, 0));
   paintChrome();
+  setTimeout(showNudge, 1100);
 }
 
 if (document.readyState === "loading") {
