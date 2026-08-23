@@ -661,56 +661,47 @@
     display:grid;
     grid-template-columns:1.05fr .95fr;
     gap:48px;
-    align-items:center;
+    align-items:start;
   }
-  .trust__head{ max-width:42ch; margin:0; }
+  .trust__head{ max-width:42ch; margin:0; padding-top:8px; }
   .trust__head h2{ font-size:clamp(28px,3.2vw,36px); margin:12px 0 18px; }
   .trust__head p{ color:var(--ink-soft); font-size:15.5px; margin-bottom:22px; }
-  .trust__image-wrap{ position:relative; padding-bottom:12px; }
+  .trust__figure{
+    margin:0;
+    border-radius:8px;
+    overflow:hidden;
+    box-shadow:0 18px 40px rgba(15,18,22,.12);
+  }
   .trust__image-wrap .art-block{
     height:auto;
     min-height:0;
     aspect-ratio:3 / 4;
-    border-radius:8px;
+    border-radius:0;
   }
-  .trust__quote-card{
-    position:absolute;
-    left:20px;
-    right:auto;
-    bottom:20px;
-    max-width:min(380px, 82%);
-    background:#4B5563;
-    border:0;
-    border-radius:8px;
-    box-shadow:0 18px 40px rgba(15,18,22,.28);
-    padding:24px 26px 22px;
+  .trust__caption{
     display:flex;
-    flex-direction:column;
-    align-items:flex-start;
+    align-items:flex-end;
+    justify-content:space-between;
     gap:16px;
+    padding:16px 20px 18px;
+    background:var(--ink);
   }
-  .trust__quote-card h4{
+  .trust__caption .eyebrow{
+    color:rgba(255,255,255,.5);
+    margin:0;
+    flex-shrink:0;
+    padding-bottom:3px;
+  }
+  .trust__caption h4{
     font-family:'Fraunces', serif;
     font-style:normal;
     font-weight:600;
-    font-size:clamp(18px, 1.8vw, 22px);
-    line-height:1.25;
+    font-size:clamp(20px, 2.1vw, 26px);
+    line-height:1.15;
     color:#fff;
     margin:0;
+    max-width:none;
   }
-  .trust__quote-card .btn{
-    background:#fff;
-    border-color:#fff;
-    color:var(--ink);
-    padding:12px 20px;
-    font-size:14px;
-  }
-  .trust__quote-card .btn:hover{
-    background:var(--ink);
-    border-color:var(--ink);
-    color:#fff;
-  }
-  .trust__quote-card .btn svg{ display:none; }
 
   /* ---------- Checklist ---------- */
   .checklist-grid{
@@ -1051,8 +1042,14 @@
     .whyus__head-media{ grid-template-columns:1fr; }
     .whyus__highlight{ grid-template-columns:1fr; gap:32px; }
     .trust__row{ grid-template-columns:1fr; gap:28px; }
-    .trust__head{ max-width:none; }
-    .trust__quote-card{ position:static; margin-top:16px; max-width:none; }
+    .trust__head{ max-width:none; padding-top:0; }
+    .trust__caption{
+      flex-direction:column;
+      align-items:flex-start;
+      gap:8px;
+    }
+    .trust__caption .eyebrow{ padding-bottom:0; }
+    .trust__caption h4{ max-width:none; }
     .checklist-grid{ grid-template-columns:1fr; }
     .process__row--first, .process__row--split, .process__row{ grid-template-columns:1fr !important; }
     .results__inner{ grid-template-columns:1fr; gap:36px; }
@@ -1471,13 +1468,13 @@
   <section class="section trust">
     <div class="wrap trust__row">
       <div class="trust__image-wrap">
-        <div class="art-block"><img src="assets/ismael-story.jpg?v=5" alt="Ismael Cazares" style="object-fit:cover; object-position:center 18%;"></div>
-        <div class="trust__quote-card">
-          <h4 data-i18n="story.card">Family-owned and serving Las Vegas since 1992.</h4>
-          <a href="#contact" class="btn">
-            <span data-i18n="story.cta">Book a consultation</span>
-          </a>
-        </div>
+        <figure class="trust__figure">
+          <div class="art-block"><img src="assets/ismael-story.jpg?v=5" alt="Ismael Cazares" style="object-fit:cover; object-position:center 18%;"></div>
+          <figcaption class="trust__caption">
+            <h4 data-i18n="story.card">Ismael Cazares</h4>
+            <span class="eyebrow" data-i18n="story.cardEyebrow">Est. 1992</span>
+          </figcaption>
+        </figure>
       </div>
       <div class="trust__head">
         <span class="eyebrow" data-i18n="story.eyebrow">Our story</span>

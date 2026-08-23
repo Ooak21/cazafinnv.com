@@ -78,7 +78,8 @@ const I18N = {
     "story.body":
       "Caza Finnancial got its start in 1992, when income tax and bookkeeping began with my wife and me serving our community. From 1998 to 2010 we served Las Vegas casino-industry employees, more than 3,000 clients strong. After selling that practice, we relaunched under a new name in 2013: Caza Finnancial. Today we serve individuals, small businesses, corporations, partnerships, and non-profits across Las Vegas.",
     "story.cta": "Book a consultation",
-    "story.card": "Family-owned and serving Las Vegas since 1992.",
+    "story.cardEyebrow": "Est. 1992",
+    "story.card": "Ismael Cazares",
     "story.statTitle": "Clear strategy and honest numbers",
     "story.statLabel": "Years with Las Vegas families",
 
@@ -322,7 +323,8 @@ const I18N = {
     "story.body":
       "Caza Finnancial nació en 1992, cuando mi esposa y yo comenzamos a preparar impuestos y llevar contabilidad para nuestra comunidad. De 1998 a 2010 servimos a los empleados de la industria de los casinos de Las Vegas, con más de 3,000 clientes. Tras vender esa práctica, relanzamos con un nuevo nombre en 2013: Caza Finnancial. Hoy servimos a personas, pequeños negocios, corporaciones, sociedades y organizaciones sin fines de lucro en Las Vegas.",
     "story.cta": "Reserve una consulta",
-    "story.card": "Negocio familiar al servicio de Las Vegas desde 1992.",
+    "story.cardEyebrow": "Est. 1992",
+    "story.card": "Ismael Cazares",
     "story.statTitle": "Estrategia clara y números honestos",
     "story.statLabel": "Años con familias de Las Vegas",
 
